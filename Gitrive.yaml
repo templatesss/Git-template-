@@ -1,0 +1,37 @@
+id: Gitrive
+
+info:
+  name: Git Repository Exposure
+  author: KunAl
+  severity: high
+  description: |
+    Detects exposed .git directories or files that could lead to sensitive information leakage.
+  tags: git,exposure,leak
+
+requests:
+  - method: GET
+    path:
+      - "/.git/"
+      - "/.git/HEAD"
+      - "/.git/config"
+      - "/.git/index"
+      - "/.git/logs/HEAD"
+      - "/.git/refs/heads/master"
+      - "/.git/refs/heads/main"
+
+    matchers:
+      - type: regex
+        part: body
+        regex:
+          - "ref: refs/heads/"  # Matches .git/HEAD content
+          - "\\[core\\]"        # Matches .git/config content
+
+      - type: status
+        status:
+          - 200  # A successful response indicates exposure
+
+    extractors:
+      - type: regex
+        part: body
+        regex:
+          - "(?i)ref: refs/heads/([\\w-]+)"  # Extracts the branch name from .git/HEAD
