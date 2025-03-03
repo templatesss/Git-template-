@@ -18,6 +18,19 @@ requests:
       - "/.git/logs/HEAD"
       - "/.git/refs/heads/master"
       - "/.git/refs/heads/main"
+      - "/.git
+      - "/.gitkeep
+      - "/.git-rewrite
+      - "/.gitreview
+      - "/.git/HEAD
+      - "/.gitconfig
+      - "/.git/index
+      - "/.git/logs
+      - "/.svnignore
+      - "/.gitattributes
+      - "/.gitmodules
+      - "/.svn/entries
+
 
     matchers:
       - type: regex
